@@ -8,14 +8,10 @@ public interface ICommand
 
 public class CastSpellCommand : ICommand
 {
-    private ObjectPool<ISpell> spellPool = new ObjectPool<ISpell>(new List<ISpell>() {
-        new Spell(0),
-        new Spell(5),
-        new Spell(10)
-    });
+    private ObjectPool<ISpell> spellPool;
 
-    public CastSpellCommand()
-    {
+    public CastSpellCommand(ObjectPool<ISpell> spellPool) {
+        this.spellPool = spellPool;
     }
 
     public void Execute()
@@ -26,5 +22,26 @@ public class CastSpellCommand : ICommand
     private void Cast()
     {
         spellPool.RequestObject()?.Cast();
+    }
+}
+
+public class DecorateFireCommand : ICommand
+{
+    private ObjectPool<ISpell> spellPool;
+
+    public DecorateFireCommand(ObjectPool<ISpell> spellPool)
+    {
+        this.spellPool = spellPool;
+    }
+
+    public void Execute()
+    {
+        DecorateSpell();
+    }
+
+    private void DecorateSpell()
+    {
+        spellPool.RequestObject()?.Decorate(new ElementDecorator(SpellTypes.Fire));
+        Debug.Log("Decorated spell with fire");
     }
 }
