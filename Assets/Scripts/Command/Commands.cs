@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface ICommand
@@ -7,23 +8,23 @@ public interface ICommand
 
 public class CastSpellCommand : ICommand
 {
-    ISpell spellToCast = null;
+    private ObjectPool<ISpell> spellPool = new ObjectPool<ISpell>(new List<ISpell>() {
+        new Spell(0),
+        new Spell(5),
+        new Spell(10)
+    });
 
-    public CastSpellCommand(ISpell spell)
+    public CastSpellCommand()
     {
-        spellToCast = spell;
     }
 
     public void Execute()
     {
-        if (spellToCast != null)
-        {
-            Cast();
-        }
+        Cast();
     }
 
     private void Cast()
     {
-        spellToCast.Cast();
+        spellPool.RequestObject()?.Cast();
     }
 }

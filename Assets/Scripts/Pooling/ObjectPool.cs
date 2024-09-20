@@ -30,11 +30,11 @@ public class ObjectPool<T> where T : IPoolable
     {
         if (_inactivePool.Count > 0)
         {
-            Debug.Log("Activated pooled spell");
+            Debug.Log("Activated pooled item");
             return ActivateItem(_inactivePool[0]);
         }
-        Debug.Log("added new spell to pool");
-        return ActivateItem(AddNewObjectToPool());
+        Debug.Log("pool is empty");
+        return default(T);
     }
 
     public T ActivateItem(T item)
