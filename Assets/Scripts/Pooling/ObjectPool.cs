@@ -30,8 +30,7 @@ public class ObjectPool<T> where T : IPoolable
     {
         if (_inactivePool.Count > 0)
         {
-            Debug.Log("Activated pooled item");
-            return ActivateItem(_inactivePool[0]);
+            return _inactivePool[0];
         }
         Debug.Log("pool is empty");
         return default(T);

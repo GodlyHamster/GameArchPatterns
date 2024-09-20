@@ -14,7 +14,7 @@ public interface ISpell : IPoolable
 {
     int damage { get; set; }
 
-    List<SpellTypes> spellTypes { get; set; }
+    HashSet<SpellTypes> spellTypes { get; set; }
 
     void Decorate(SpellDecorator decorator);
 
@@ -24,7 +24,7 @@ public interface ISpell : IPoolable
 public class Spell : ISpell
 {
     public int damage { get; set; }
-    public List<SpellTypes> spellTypes { get; set; } = new List<SpellTypes>();
+    public HashSet<SpellTypes> spellTypes { get; set; } = new HashSet<SpellTypes>() { SpellTypes.Normal };
     public bool active { get; set; }
 
     public Spell(int damage)

@@ -21,7 +21,7 @@ public class CastSpellCommand : ICommand
 
     private void Cast()
     {
-        spellPool.RequestObject()?.Cast();
+        spellPool.ActivateItem(spellPool.RequestObject())?.Cast();
     }
 }
 
